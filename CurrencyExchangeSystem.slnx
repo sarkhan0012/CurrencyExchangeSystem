@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CurrencyExchange.WcfService/CurrencyExchange.WcfService.csproj" Id="db4e5789-ddbe-477e-8b6a-e06f3f9a1713" />
+  <Project Path="CurrencyExchange.WPF/CurrencyExchange.WPF.csproj" Id="32c45c7b-a885-42a0-b2df-514c5d1d69b6">
+    <BuildDependency Project="CurrencyExchange.WcfService/CurrencyExchange.WcfService.csproj" />
+  </Project>
+</Solution>
