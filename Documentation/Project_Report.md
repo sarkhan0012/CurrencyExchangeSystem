@@ -1,3 +1,4 @@
+<img width="1912" height="1029" alt="Screenshot 2026-06-03 154719" src="https://github.com/user-attachments/assets/88865c54-325c-48f6-9b44-0d7d72401dc1" />
 # Network Application Development Project
 
 * **Name:** Sarkhan Rahimov
