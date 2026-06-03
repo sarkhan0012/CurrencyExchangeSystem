@@ -1,71 +1,66 @@
-# .NET Programming Final Project
-## 🏦 ExchangeApp - Currency Exchange Office System
+# 🏦 ExchangeApp - Distributed Currency Exchange System
+
+![.NET Framework](https://img.shields.io/badge/.NET-4.7.2-512BD4?logo=dotnet)
+![WPF](https://img.shields.io/badge/Frontend-WPF-blue)
+![WCF](https://img.shields.io/badge/Backend-WCF-green)
+![SQL](https://img.shields.io/badge/Database-LocalDB-lightgrey)
+
+* **Developer:** Sarkhan Rahimov
+* **Student ID:** 63294
+* **Course:** .Network Application Development
 
 ---
 
-* **Name:** Sarkhan Rahimov
-* **Student ID:** 64293
+## 📖 Project Overview
+**ExchangeApp** is a comprehensive distributed network application built on a robust Client-Server architecture. Developed as the final project for the *.Network Application Development* course, this system simulates a real-world Currency Exchange Office. 
+
+The project separates the business logic, external API integrations, and database management into a secure backend **WCF (Windows Communication Foundation) Service**, while presenting a highly reactive and user-friendly interface via a **WPF (Windows Presentation Foundation)** desktop client.
+
+## ✨ Key Features
+* **🌐 Live Network API Integration:** Securely fetches real-time exchange rates (Bid/Ask) from the **National Bank of Poland (NBP) API** over HTTPS, parsing JSON payloads dynamically.
+* **🔗 WCF Service-Oriented Architecture:** Fully decoupled architecture where the WPF client communicates with the WCF backend via strictly defined Service Contracts (`IService1`) and Endpoints.
+* **💼 Virtual Wallet & User Sessions:** Includes a robust user authentication system. Users can register, log in, and top up their virtual PLN balances in real-time.
+* **💱 Live Currency Trading:** Users can execute Buy and Sell operations for foreign currencies (USD, EUR, GBP, CHF, etc.) based on the live mid-rates retrieved from the NBP network.
+* **🛡️ Secure Transaction Ledger:** Every financial operation is isolated and permanently recorded in a Microsoft SQL Server database, providing users with an accurate, real-time transaction history ledger.
+* **🛑 Advanced Error Handling:** Implements clean code principles with robust exception handling for network drops, endpoint misconfigurations, and invalid user inputs.
 
 ---
 
-### 📘 Course Information
-* **Course Name:** .NET Programming
-* **Instructor:** Marcin Krupski
-* **Academic Evaluation:** Satisfies Object-Oriented Programming (OOP) lab structures, WCF-WPF communication protocols, and clean code standards.
+## 🛠️ System Architecture & Technologies
 
-### 📝 Project Title
-**Distributed Currency Exchange System using WCF, WPF, and SQL Server**
+The application is strictly divided into distinct network layers:
 
----
+1. **Backend / Network Service (`CurrencyExchange.WcfService`):**
+   * Acts as the central nervous system.
+   * Handles direct connections to the NBP API and the local SQL Database.
+   * Technologies: **C#, WCF, ADO.NET, Newtonsoft.Json**
 
-### 🚀 Project Description
-This project is a comprehensive distributed desktop application developed as the final showcase for the **.NET Programming** course. It implements a service-oriented architecture (SOA) where business logic, bank API integration, and user data management are handled securely by a backend **WCF Service**, while a desktop **WPF Client** provides a modern, reactive user interface for operations.
+2. **Frontend / Client UI (`CurrencyExchange.WPF`):**
+   * Acts as the consumer of the WCF network service.
+   * Maintains state and manages the user interface reactively.
+   * Technologies: **C#, WPF, XAML**
 
-**Key Features & Implemented Concepts:**
-* **Live NBP Data Integration:** Fetches real-time exchange rates directly from the public **National Bank of Poland (NBP) API** via secure HTTPS connections and parses them using `Newtonsoft.Json`.
-* **User Management & Virtual Wallet:** Features a secure user account infrastructure supporting registration, login states, and live PLN balance top-ups.
-* **Real-time Currency Trading:** Users can dynamically buy and sell foreign currencies (USD, EUR, GBP, etc.) based on real-time central bank rates.
-* **Transaction Ledger (History):** Every buy, sell, and top-up operation is written directly to an isolated SQL database ledger, allowing users to view their complete transaction history securely on the dashboard.
-* **Clean Code & Error Handling:** Implements robust `try-catch` exception handling for network availability, database connection drops, and invalid inputs, ensuring the core application workflow remains stable.
+3. **Database Layer:**
+   * **Microsoft SQL Server (LocalDB)** handles persistent data storage.
 
 ---
 
-### 🛠 Core OOP & Architecture Implementations
-Following the absolute criteria set by the Course Directorate and the Instructor, the system heavily incorporates core Object-Oriented Programming principles:
-* **Encapsulation & Data Models:** Full data shielding using explicit access modifiers and Data Contracts (`[DataContract]`, `[DataMember]`).
-* **Interfaces & Contracts (Polymorphism):** Complete separation of concerns achieved via service contract definitions utilizing the **`IService1` Interface** (`[ServiceContract]`, `[OperationContract]`).
-* **Generic Collections:** Dynamic UI data binding using type-safe `List<T>` for transaction histories and NBP API data mapping to avoid loose object arrays and casting errors.
+## 🚀 How to Run the Project Locally
 
----
+To run this distributed application on your local machine, both the Server (WCF) and the Client (WPF) must be started simultaneously.
 
-### 📂 Repository Structure
-* **`CurrencyExchange.WcfService/`**: Backend WCF Web Service layer hosting operational endpoints, tracking local MSSQL parameters, and handling DB interactions.
-* **`CurrencyExchange.WPF/`**: Desktop user interface built with WPF/XAML, managing reactive event handlers and secure proxy channels (`ServiceReference`).
+### 1. Database Setup
+* The application connects natively to **SQL Server LocalDB** (`(localdb)\MSSQLLocalDB`).
+* Ensure that the `CurrencyExchangeDB` database is created on your local SQL server with the required `Users` and `Transactions` tables before running the service.
 
----
+### 2. Multi-Startup Configuration in Visual Studio
+* Open the `CurrencyExchangeSystem.slnx` solution file in Visual Studio.
+* Right-click the **Solution** node in the *Solution Explorer* and select **Properties**.
+* Navigate to **Startup Project** and select **Multiple startup projects**.
+* Set the Action to **Start** for both `CurrencyExchange.WcfService` and `CurrencyExchange.WPF`.
+* Click **Apply** and **OK**.
 
-### 💻 How to Run the Project
-
-1. **Database Setup:**
-   * The application uses natively **SQL Server LocalDB** (`(localdb)\MSSQLLocalDB`).
-   * Execute the SQL script provided in the project to create the `CurrencyExchangeDB` database, along with the `Users` and `Transactions` tables.
-
-2. **Visual Studio Multi-Startup Configuration:**
-   * Open the primary solution file (`CurrencyExchangeSystem.sln` / `ExchangeApp.sln`) inside Visual Studio.
-   * Right-click the top-level **Solution** node in your Solution Explorer and open **Properties** -> **Startup Project**.
-   * Choose **Multiple startup projects**.
-   * Toggle the action settings for both **`CurrencyExchange.WcfService`** and **`CurrencyExchange.WPF`** to **Start**.
-   * Select **Apply** and press **OK**.
-
-3. **Execution:**
-   * Click the green **Start** button or press **F5**. Visual Studio will boot up the background WCF service host environment and initialize your WPF application workspace simultaneously.
-   * Register a new account, sign in, add some virtual PLN tokens, and enter currency codes (USD, EUR) to monitor live exchange balances and execute operations!
-
----
-
-### 🛠 Technologies Used
-* **Development Environment:** Visual Studio 2022, .NET Framework 4.7.2
-* **Backend Framework:** WCF (Windows Communication Foundation)
-* **Frontend Framework:** WPF (Windows Presentation Foundation), XAML
-* **Database Client:** Microsoft SQL Server (LocalDB), ADO.NET Core Data APIs (`SqlConnection`, `SqlCommand`)
-* **External API Handshake:** National Bank of Poland JSON Feed (Deserialized via `Newtonsoft.Json`)
+### 3. Execution
+* Press **F5** or click the green **Start** button.
+* Visual Studio will launch the WCF service environment in the background and open the WPF graphical interface.
+* Create a new account, log in, top up your balance, and start trading!
